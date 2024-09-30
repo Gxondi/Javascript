@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<script>
+    // 高阶函数
+    function add(x, y, f) {
+        return f(x) + f(y);
+    }
+    console.log(add(-5, 6, Math.abs)); // 11
+    // map()函数定义在JavaScript的Array中，我们调用Array的map()方法，传入自己的函数，就得到一个新的Array作为结果：
+    var arr = [1, 2, 3, 4, 5, 6, 7, 8, 9];
+    var result = arr.map(function (x) {
+        return x * x;
+    });
+    console.log(result);
+    // reduce()把一个函数作用在这个Array的[x1, x2, x3...]上，这个函数必须接收两个参数，reduce()把结果继续和序列的下一个元素做累积计算
+    var arr = [1, 3, 5, 7, 9];
+    var result = arr.reduce(function (x, y) {
+        return x + y;
+    });
+    console.log(result);
+    // filter()把传入的函数依次作用于每个元素，然后根据返回值是true还是false决定保留还是丢弃该元素
+    var arr = [1, 2, 4, 5, 6, 9, 10, 15];
+    var r = arr.filter(function (x) {
+        return x % 2 !== 0;
+    });
+    console.log(r);
+    // sort()方法会直接对Array进行修改，它返回的结果仍是当前Array：
+    var arr = [10, 20, 1, 2];
+    arr.sort(function (x, y) {
+        if (x < y) {
+            return -1;
+        }
+        if (x > y) {
+            return 1;
+        }
+        return 0;
+    });
+    console.log(arr);
+    // sort()方法会直接对Array进行修改，它返回的结果仍是当前Array：
+    var arr = ['Google', 'apple', 'Microsoft'];
+    arr.sort(function (s1, s2) {
+        x1 = s1.toUpperCase();
+        x2 = s2.toUpperCase();
+        if (x1 < x2) {
+            return -1;
+        }
+        if (x1 > x2) {
+            return 1;
+        }
+        return 0;
+    });
+    console.log(arr);
+    //闭包
+    function count() {
+        var arr = [];
+        for (var i = 1; i <= 3; i++) {
+            arr.push(function () {
+                return i * i;
+            });
+        }
+        return arr;
+    }
+    var results = count();
+    var f1 = results[0];
+    var f2 = results[1];
+    var f3 = results[2];
+    console.log(f1()); // 16
+    console.log(f2()); // 16
+    console.log(f3()); // 16
+    //箭头函数
+    var fn = x => x * x;
+    console.log(fn(3)); // 9
+    //标签函数
+    var name = '小明';
+    var age = 20;
+    var message = tag`你好, ${name}, 你今年${age}岁了!`;
+    function tag(s, v1, v2) {
+        console.log(s[0]); // "你好, "
+        console.log(s[1]); // ", 你今年"
+        console.log(s[2]); // "岁了!"
+        console.log(v1); // 小明
+        console.log(v2); // 20
+        return 'OK';
+    }
+    console.log(message); // OK
+    const email = "test@example.com";
+    const password = 'hello123';
+    //第一个参数strings是一个字符串数组，
+    //它是["SELECT * FROM users WHERE email=", " AND password=", ""]，
+    //即除去${xxx}剩下的字符组成的数组；
+    /*
+        第二个参数...exps是一个可变参数，
+        它接收的也是一个数组，
+        但数组的内容是由模板字符串里所有的${xxx}的实际值组成，
+        即["test@example.com", "hello123"]，
+        解析${email}得到"test@example.com"，
+        解析${password}得到"hello123"。
+    */
+    function sql(strings, ...exps) {
+        console.log(`SQL: ${strings.join('?')}`);
+        console.log(`SQL parameters: ${JSON.stringify(exps)}`);
+        return {
+            name: '小明',
+            age: 20
+        };
+    }
+
+    const result1 = sql`SELECT * FROM users WHERE email=${email} AND password=${password}`;
+
+    console.log(JSON.stringify(result));
+
+    function* next_id() {
+        let id = 1;
+        while (true) {
+            yield id++;
+        }
+    }
+
+    // 创建生成器实例
+    const idGenerator = next_id();
+
+    // 测试:
+    console.log(idGenerator.next().value); // 输出: 1
+    console.log(idGenerator.next().value); // 输出: 2
+    console.log(idGenerator.next().value); // 输出: 3
+    console.log(idGenerator.next().value); // 输出: 4
+
+    JSON.stringify(xiaoming, ['name', 'skills'], '  ');
+    JSON.stringify(xiaoming, function (key, value) {
+        if (key === 'name') {
+            return value + '同学';
+        }
+        return value;
+    });
+    //JSON.parse()用于把JSON字符串解析为JavaScript对象
+    var xiaoming = {
+        name: '小明',
+        age: 14
+    };
+    var s = JSON.stringify(xiaoming);
+    console.log(s);
+</script>
+
+<body>
+
+</body>
+
+</html>

@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script>
+        var x = 1;
+        if (2 > 1) {
+            x = 2;
+            y = 3;
+        }
+        // JavaScript不区分整数和浮点数，统一用Number表示，以下都是合法的Number类型：
+        // JavaScript的Number不区分整数和浮点数，也就是说，12.00 === 12
+        123; // 整数123
+        0.456; // 浮点数0.456
+        1.2345e3; // 科学计数法表示1.2345x1000，等同于1234.5
+        -99; // 负数
+        NaN; // NaN表示Not a Number，当无法计算结果时用NaN表示
+        Infinity; // Infinity表示无限大，当数值超过了JavaScript的Number所能表示的最大值时，就表示为Infinity
+        console.log(Number.MIN_SAFE_INTEGER);
+        //字符串
+        'Hello, world';
+        // 第一种是==比较，它会自动转换数据类型再比较，很多时候，会得到非常诡异的结果；
+
+        // 第二种是===比较，它不会自动转换数据类型，如果数据类型不一致，返回false，如果一致，再比较。
+        //数组
+        var arr = [1, 2, 3.14, 'Hello', null, true];
+        new Array(1, 2, 3); // 创建了数组[1, 2, 3]
+        new Array(10); // 创建了一个长度为10的数组
+
+        i = 10;//全局变量
+
+        // function hello() {
+        //     'use strict';
+        //     // 如果浏览器支持strict模式，
+        //     // 下面的代码将报ReferenceError错误:
+        //     helloStr = 'hello';
+        //     console.log(helloStr);
+        // }
+        // hello();
+
+
+        let name = '小明';
+        let age = 20;
+        let message = `你好, ${name}, 你今年${age}岁了!`;
+        console.log(message);
+        let s = 'Hello, world!';
+        s.length; // 13
+        s[0]; // 'H'
+        s.toLocaleUpperCase(); // 'HELLO, WORLD!'
+        s.substring(0, 5); // 'Hello'
+        // 索引超出范围会导致数组大小自动调整:
+        var arr = [1, 2, 3];
+        
+        arr.length; // 3
+        arr[5] = 'x';
+        console.log(arr); // arr变为[1, 2, 3, undefined, undefined, 'x']
+        //截取数组
+        var arr = ['A', 'B', 'C'];
+        arr.slice(0, 1); // ['A']
+        // 数组还可以使用push和pop方法，这两个方法分别在数组的末尾添加元素和删除元素
+        //拼接数组
+        var arr123 = ['A', 'B', 'C'];
+        var added = arr123.concat([1, 2, 4]);
+        console.log(added); // ['A', 'B', 'C', 1, 2, 3]
+        //join()方法，可以把当前数组的每个元素都用指定的字符串连接起来，然后返回连接后的字符串：
+        var abc = ['A', 'B', 'C', 1, 2, 5];
+        abc.join('-'); // 'A-B-C-1-2-3'
+        //alert(abc); 
+
+        //-----------------------对象-----------------------
+        var xiaoming = {
+            name: '小明',
+            birth: 1990,
+            school: 'No.1 Middle School',
+            height: 1.70,
+            weight: 65,
+            score: null
+        };
+        //访问属性
+        xiaoming.name; // '小明'
+        xiaoming.birth; // 1990
+        //修改属性
+        xiaoming.age = 18;
+        //删除属性
+        delete xiaoming.age;
+        //判断属性是否存在
+        'name' in xiaoming; // true
+        'grade' in xiaoming; // false
+        //判断属性是否是对象自身的属性，而不是继承的属性
+        xiaoming.hasOwnProperty('name'); // true
+        //如果in判断一个属性存在，这个属性不一定是xiaoming的，它可能是xiaoming继承得到的：
+        //因为toString定义在object对象中，而所有对象最终都会在原型链上指向object，所以xiaoming也拥有toString属性。
+        xiaoming.hasOwnProperty('toString'); // false
+
+        let m = new Map([['Michael', 95], ['Bob', 75], ['Tracy', 85]]);
+        m.get('Michael'); // 95
+        // Set
+        let setN = new Set();
+        let aaa = ['A', 'B', 'C', 'A', 'B'];
+        aaa.forEach(function (element, index, array) {
+            console.log(`${element}, index = ${index}`);
+        });
+
+        //函数，函数当中有个arguments对象，它只在函数内部起作用，并且永远指向当前函数的调用者传入的所有参数。
+        function foo(x) {
+            console.log('x = ' + x); // 10
+            for (var i = 0; i < arguments.length; i++) {
+                console.log('arg ' + i + ' = ' + arguments[i]);
+            }
+        }
+        foo(10, 20, 30);
+        //rest参数 rest参数只能写在最后，前面用...标识
+        //如果传入的参数连正常定义的参数都没填满，也不要紧，rest参数会接收一个空数组（注意不是undefined）。
+        function foo1(a, b, ...rest) {
+            console.log('a = ' + a);
+            console.log('b = ' + b);
+            console.log(rest);
+        }
+        foo1(1, 2, 3, 4, 5);
+
+        //解构赋值
+        let person = {
+            name1: '小明',
+            age1: 20,
+            gender: 'male',
+            passport: 'G-12345678',
+            school: 'No.4 middle school'
+        };
+        let { name1, age1, passport } = person;
+        // 把passport属性赋值给变量id:
+        let { passport: id } = person;
+        console.log(name1, age1, passport);
+
+        'use strict';
+        // this绑定的是函数运行时的环境，如果是全局环境，this绑定window
+        let xiaoming = {
+            name: '小明',
+            birth: 1990,
+            age: function () {
+                let that = this; // 在方法内部一开始就捕获this
+                function getAgeFromBirth() {
+                    let y = new Date().getFullYear();
+                    return y - that.birth; // 用that而不是this
+                }
+                return getAgeFromBirth();
+            }
+        };
+
+        xiaoming.age(); // 25
+        //apply()方法，调用一个函数时，传递参数并直接指定this的指向
+        //要指定函数的this指向哪个对象，可以用函数本身的apply方法，它接收两个参数，
+        //第一个参数就是需要绑定的this变量，第二个参数是Array，表示函数本身的参数。
+        function getAge() {
+            let y = new Date().getFullYear();
+            return y - this.birth;
+        }
+
+        let xiaoming = {
+            name: '小明',
+            birth: 1990,
+            age: getAge
+        };
+
+        xiaoming.age(); // 25
+        getAge.apply(xiaoming, []); // 25, this指向xiaoming, 参数为空
+    </script>
+</head>
+
+<body>
+
+</body>
+
+</html>
